@@ -1,0 +1,392 @@
+---
+name:  TNA
+title: Transition Network Analysis
+jrs:   '1.1'
+refs:
+  - TNA
+items:
+
+    - name: errorText
+      title: Error
+      type: Preformatted
+      visible: False
+    - name:  tnaTitle
+      title: TNA
+      type:  Preformatted
+      visible: True
+    ### BUILD MODEL
+    - name:  buildModelTitle
+      title: Model
+      type:  Preformatted
+      visible: True
+
+    - name:  buildModelContent
+      type:  Preformatted
+      visible: False
+      clearWith:
+        - buildModel_variables_long_actor
+        - buildModel_variables_long_time
+        - buildModel_variables_long_action
+        - buildModel_variables_long_order
+
+        - buildModel_type
+        - buildModel_scaling
+        - buildModel_threshold
+
+    - name: buildModel_plot
+      type: Image
+      width: 600
+      height: 600
+      visible: False
+      renderFun: .showBuildModelPlot
+      clearWith:
+        - buildModel_variables_long_actor
+        - buildModel_variables_long_time
+        - buildModel_variables_long_action
+        - buildModel_variables_long_order
+
+        - buildModel_type
+        - buildModel_scaling
+        - buildModel_threshold
+
+        - buildModel_plot_cut
+        - buildModel_plot_min_value
+        - buildModel_plot_edge_label_size
+        - buildModel_plot_node_size
+        - buildModel_plot_node_label_size
+        - buildModel_plot_layout
+
+    - name: buildModel_histo
+      type: Image
+      width: 600
+      height: 600
+      visible: False
+      renderFun: .showBuildModelHisto
+      clearWith: 
+        - buildModel_variables_long_actor
+        - buildModel_variables_long_time
+        - buildModel_variables_long_action
+        - buildModel_variables_long_order
+
+        - buildModel_type
+        - buildModel_scaling
+        - buildModel_threshold
+    - name: buildModel_mosaic
+      type: Image
+      width: 600
+      height: 600
+      visible: False
+      renderFun: .showBuildModelMosaic
+      clearWith:
+        - buildModel_variables_long_actor
+        - buildModel_variables_long_time
+        - buildModel_variables_long_action
+        - buildModel_variables_long_order
+
+        - buildModel_type
+        - buildModel_scaling
+        - buildModel_threshold
+
+        - buildModel_digits
+
+    ### CENTRALITY
+    - name:  centralityTitle
+      title: Centrality
+      type:  Preformatted
+      visible: False
+    
+    - name:  centralityContent
+      type:  Preformatted
+      visible: False
+      clearWith:
+        - buildModel_variables_long_actor
+        - buildModel_variables_long_time
+        - buildModel_variables_long_action
+        - buildModel_variables_long_order
+        - buildModel_type
+        - buildModel_scaling
+        - buildModel_threshold
+
+        - centrality_loops
+        - centrality_normalize
+        - centrality_Betweenness
+        - centrality_BetweennessRSP
+        - centrality_Closeness
+        - centrality_ClosenessIn
+        - centrality_ClosenessOut
+        - centrality_Clustering
+        - centrality_Diffusion
+        - centrality_InStrength
+        - centrality_OutStrength
+
+
+    - name: centralityTable
+      type: Table
+      visible: False
+      columns:
+        - name: state
+          type: text
+      clearWith:
+        - buildModel_variables_long_actor
+        - buildModel_variables_long_time
+        - buildModel_variables_long_action
+        - buildModel_variables_long_order
+        - buildModel_type
+        - buildModel_scaling
+        - buildModel_threshold
+
+        - centrality_loops
+        - centrality_normalize
+        - centrality_Betweenness
+        - centrality_BetweennessRSP
+        - centrality_Closeness
+        - centrality_ClosenessIn
+        - centrality_ClosenessOut
+        - centrality_Clustering
+        - centrality_Diffusion
+        - centrality_InStrength
+        - centrality_OutStrength
+    - name: centrality_plot
+      type: Image
+      width: 600
+      height: 600
+      visible: False
+      renderFun: .showCentralityPlot
+      clearWith:
+        - buildModel_variables_long_actor
+        - buildModel_variables_long_time
+        - buildModel_variables_long_action
+        - buildModel_variables_long_order
+        - buildModel_type
+        - buildModel_scaling
+        - buildModel_threshold
+
+        - centrality_loops
+        - centrality_normalize
+        - centrality_Betweenness
+        - centrality_BetweennessRSP
+        - centrality_Closeness
+        - centrality_ClosenessIn
+        - centrality_ClosenessOut
+        - centrality_Clustering
+        - centrality_Diffusion
+        - centrality_InStrength
+        - centrality_OutStrength
+
+    ### Edge betweenness
+
+    - name:  edgeBetweennessTitle
+      type:  Preformatted
+      title: Edge betweenness
+      visible: False
+
+    - name:  edgeBetweennessContent
+      type:  Preformatted
+      visible: False
+      clearWith:
+        - buildModel_variables_long_actor
+        - buildModel_variables_long_time
+        - buildModel_variables_long_action
+        - buildModel_variables_long_order
+        - buildModel_type
+        - buildModel_scaling
+        - buildModel_threshold
+    
+    - name: edgeBetweenness_plot
+      type: Image
+      width: 600
+      height: 600
+      visible: False
+      renderFun: .showEdgeBetweennessPlot
+      clearWith:
+        - buildModel_variables_long_actor
+        - buildModel_variables_long_time
+        - buildModel_variables_long_action
+        - buildModel_variables_long_order
+        - buildModel_type
+        - buildModel_scaling
+        - buildModel_threshold
+
+        - edgeBetweenness_plot_cut
+        - edgeBetweenness_plot_min_value
+        - edgeBetweenness_plot_edge_label_size
+        - edgeBetweenness_plot_node_size
+        - edgeBetweenness_plot_node_label_size
+        - edgeBetweenness_plot_layout
+
+    ### COMMUNITY
+    - name:  communityTitle
+      title: Community
+      type:  Preformatted
+      visible: False
+
+    - name:  communityContent
+      type:  Preformatted
+      visible: False
+      clearWith:
+        - buildModel_variables_long_actor
+        - buildModel_variables_long_time
+        - buildModel_variables_long_action
+        - buildModel_variables_long_order
+        - buildModel_type
+        - buildModel_scaling
+        - buildModel_threshold
+
+        - community_methods
+        - community_gamma
+
+    - name: community_plot
+      type: Image
+      width: 600
+      height: 600
+      visible: False
+      renderFun: .showCommunityPlot
+      clearWith:
+        - buildModel_variables_long_actor
+        - buildModel_variables_long_time
+        - buildModel_variables_long_action
+        - buildModel_variables_long_order
+        - buildModel_type
+        - buildModel_scaling
+        - buildModel_threshold
+
+        - community_methods
+        - community_gamma
+    ### CLIQUE
+
+    - name:  cliquesTitle
+      type:  Preformatted
+      title: Cliques
+      visible: False
+      
+
+    - name:  cliquesContent
+      type:  Preformatted
+      visible: False
+      clearWith:
+        - buildModel_variables_long_actor
+        - buildModel_variables_long_time
+        - buildModel_variables_long_action
+        - buildModel_variables_long_order
+        - buildModel_type
+        - buildModel_scaling
+        - buildModel_threshold
+
+        - cliques_size
+        - cliques_threshold
+
+    - name: cliques_multiple_plot
+      type: Group
+      title: ""
+      visible: False
+      clearWith:
+        - buildModel_variables_long_actor
+        - buildModel_variables_long_time
+        - buildModel_variables_long_action
+        - buildModel_variables_long_order
+        - buildModel_type
+        - buildModel_scaling
+        - buildModel_threshold
+
+        - cliques_size
+        - cliques_threshold
+
+        - cliques_plot_min_value
+        - cliques_plot_edge_label_size
+        - cliques_plot_node_size
+        - cliques_plot_node_label_size
+        - cliques_plot_layout
+      items:
+      - name: cliques_plot1
+        type: Image
+        width: 600
+        height: 600
+        visible: True
+        renderFun: .showCliquesPlot1
+      - name: cliques_plot2
+        type: Image
+        width: 600
+        height: 600
+        visible: True
+        renderFun: .showCliquesPlot2
+      - name: cliques_plot3
+        type: Image
+        width: 600
+        height: 600
+        visible: True
+        renderFun: .showCliquesPlot3
+      - name: cliques_plot4
+        type: Image
+        width: 600
+        height: 600
+        visible: True
+        renderFun: .showCliquesPlot4
+      - name: cliques_plot5
+        type: Image
+        width: 600
+        height: 600
+        visible: True
+        renderFun: .showCliquesPlot5
+      - name: cliques_plot6
+        type: Image
+        width: 600
+        height: 600
+        visible: True
+        renderFun: .showCliquesPlot6
+    
+    ### Bootstrap
+
+    - name:  bootstrapTitle
+      type:  Preformatted
+      title: Bootstrap
+      visible: False
+
+    - name:  bootstrapContent
+      type:  Preformatted
+      visible: False
+      clearWith:
+        - buildModel_variables_long_actor
+        - buildModel_variables_long_time
+        - buildModel_variables_long_action
+        - buildModel_variables_long_order
+        - buildModel_type
+        - buildModel_scaling
+        - buildModel_threshold
+
+        - bootstrap_iteration
+        - bootstrap_level
+        - bootstrap_method
+        - bootstrap_range_low
+        - bootstrap_range_up
+        - bootstrap_threshold
+    
+    - name: bootstrap_plot
+      type: Image
+      width: 600
+      height: 600
+      visible: False
+      renderFun: .showBootstrapPlot
+      clearWith:
+        - buildModel_variables_long_actor
+        - buildModel_variables_long_time
+        - buildModel_variables_long_action
+        - buildModel_variables_long_order
+        - buildModel_type
+        - buildModel_scaling
+        - buildModel_threshold
+
+        - bootstrap_iteration
+        - bootstrap_level
+        - bootstrap_method
+        - bootstrap_range_low
+        - bootstrap_range_up
+        - bootstrap_threshold
+
+        - bootstrap_plot_cut
+        - bootstrap_plot_min_value
+        - bootstrap_plot_edge_label_size
+        - bootstrap_plot_node_size
+        - bootstrap_plot_node_label_size
+        - bootstrap_plot_layout
+        
+...

@@ -1,0 +1,10 @@
+---
+refs:
+  TNA:
+    type: 'package'
+    author: Dylan Girault, Mohammed Saqr, Sonsoles López-Pernas, Santtu Tikka
+    year: 2025
+    title: 'Transition Network Analysis (TNA)'
+    publisher: '[R package]. Retrieved from https://CRAN.R-project.org/package=tna'
+    url: 'https://CRAN.R-project.org/package=tna'
+...
