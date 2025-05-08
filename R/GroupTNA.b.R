@@ -82,16 +82,6 @@ GroupTNAClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
           groupColumn <- self$options$buildModel_variables_long_group
           orderColumn <- self$options$buildModel_variables_long_order
 
-          ##### TO REMOVE
-          values_to_replace <- c("Applications", "Ethics", "General", "La_types", "Theory")
-          new_value <- "Resources"
-          longData[[actionColumn]] <- replace(
-              longData[[actionColumn]], 
-              longData[[actionColumn]] %in% values_to_replace, 
-              new_value
-          )
-          ##### END TO REMOVE
-
           args_prepare_data <- list(
               data = longData,
               actor = actorColumn,
@@ -299,6 +289,7 @@ GroupTNAClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
           if(!self$results$cliques_multiple_plot$isFilled() || !self$results$cliquesContent$isFilled()) {
               cliques <- tna::cliques(x=model, size=cliques_size, threshold=cliques_threshold)
 
+              # Text
               if(!self$results$cliquesContent$isFilled()) {
                 self$results$cliquesContent$setContent(cliques)
               }
@@ -335,6 +326,7 @@ GroupTNAClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
             consistency_range=c(range_low, range_up)
           )
 
+          # Text
           if(!self$results$bootstrapContent$isFilled()) {
             self$results$bootstrapContent$setContent(bs)
           }
@@ -371,7 +363,6 @@ GroupTNAClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
           {
               compare_group <- tna::compare(model, i=indexModel1, j=indexModel2)
 
-              # Title
 
               # Text
               if(!self$results$comparisonContent$isFilled()) {

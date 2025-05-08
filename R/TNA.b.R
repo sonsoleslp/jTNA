@@ -74,16 +74,6 @@ TNAClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                     actionColumn <- self$options$buildModel_variables_long_action
                     orderColumn <- self$options$buildModel_variables_long_order
 
-                    ##### TO REMOVE
-                    values_to_replace <- c("Applications", "Ethics", "General", "La_types", "Theory")
-                    new_value <- "Resources"
-                    longData[[self$options$buildModel_variables_long_action]] <- replace(
-                        longData[[self$options$buildModel_variables_long_action]], 
-                        longData[[self$options$buildModel_variables_long_action]] %in% values_to_replace, 
-                        new_value
-                    )
-                    ##### END TO REMOVE
-
                     args_prepare_data <- list(
                         data = longData,
                         actor = actorColumn,
@@ -306,6 +296,7 @@ TNAClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                 if(!self$results$cliques_multiple_plot$isFilled() || !self$results$cliquesContent$isFilled()) {
                     cliques <- cliques(x=model, size=cliques_size, threshold=cliques_threshold)
 
+                    # Text
                     if(!self$results$cliquesContent$isFilled()) {
                         self$results$cliquesContent$setContent(cliques)
                     }
@@ -345,6 +336,7 @@ TNAClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                                     consistency_range=c(range_low, range_up)
                     )
 
+                    # Text
                     if(!self$results$bootstrapContent$isFilled()) {
                         self$results$bootstrapContent$setContent(bs)
                     }
