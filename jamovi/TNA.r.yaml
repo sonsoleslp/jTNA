@@ -33,6 +33,7 @@ items:
         - buildModel_scaling
         - buildModel_threshold
 
+
     - name: buildModel_plot
       type: Image
       width: 600
@@ -122,6 +123,7 @@ items:
 
     - name: centralityTable
       type: Table
+      title: Centralities
       visible: False
       columns:
         - name: state

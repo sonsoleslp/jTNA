@@ -782,6 +782,7 @@ TNAResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             self$add(jmvcore::Table$new(
                 options=options,
                 name="centralityTable",
+                title="Centralities",
                 visible=FALSE,
                 columns=list(
                     list(

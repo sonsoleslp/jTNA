@@ -65,24 +65,21 @@ TNAClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
 
                 longData <- copyData[columnToUseLong]
 
-
-                
-
                 if(ncol(longData) > 0) {
                     actorColumn <- self$options$buildModel_variables_long_actor
                     timeColumn <- self$options$buildModel_variables_long_time
                     actionColumn <- self$options$buildModel_variables_long_action
                     orderColumn <- self$options$buildModel_variables_long_order
-
+                  
                     args_prepare_data <- list(
                         data = longData,
                         actor = actorColumn,
                         time = timeColumn,
                         action = actionColumn,
                         time_threshold = threshold,
-                        order = orderColumn
+                        order = orderColumn,
+                        unused_fn = dplyr::first
                     ) 
-
                     args_prepare_data <- args_prepare_data[!sapply(args_prepare_data, is.null)]
 
                     dataForTNA <- do.call(prepare_data, args_prepare_data)
@@ -105,28 +102,17 @@ TNAClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                     self$results$buildModelContent$setState(model)
                 }
                 self$results$buildModelContent$setVisible(self$options$buildModel_show_matrix)
-
                 self$results$buildModel_plot$setVisible(self$options$buildModel_show_plot) # plot
-                
                 self$results$buildModel_histo$setVisible(self$options$buildModel_show_histo) # plot
-                
                 self$results$buildModel_mosaic$setVisible(self$options$buildModel_show_mosaic) # plot
-
             }
             
-
-
             ### Centrality
-
             if(!is.null(model) && (self$options$centrality_show_table || self$options$centrality_show_plot) ) {
                 centrality_loops <- self$options$centrality_loops
                 centrality_normalize <- self$options$centrality_normalize
-
                 vectorCharacter <- character(0)    
-
                 fullTable <- self$results$centralityTable$isFilled()             
-
-
                 if(self$options$centrality_OutStrength) {
                     vectorCharacter <- append(vectorCharacter, "OutStrength")
                     self$results$centralityTable$addColumn(name="OutStrength", type="number")
@@ -219,7 +205,6 @@ TNAClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                 self$results$centralityTitle$setVisible(self$options$centrality_show_plot || self$options$centrality_show_table)
                 self$results$centrality_plot$setVisible(self$options$centrality_show_plot)
                 self$results$centralityTable$setVisible(self$options$centrality_show_table)
-                    
             }
 
             ### Edge betweenness
@@ -240,9 +225,7 @@ TNAClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                 self$results$edgeBetweenness_plot$setVisible(self$options$edgeBetweenness_show_plot)
                 self$results$edgeBetweennessContent$setVisible(self$options$edgeBetweenness_show_text)
                 self$results$edgeBetweennessTitle$setVisible(self$options$edgeBetweenness_show_text || self$options$edgeBetweenness_show_plot)
-
             }
-
 
             ### Community
 
@@ -251,9 +234,7 @@ TNAClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                 methods <- self$options$community_methods
 
                 if((!self$results$communityContent$isFilled() || !self$results$community_plot$isFilled())) { 
-
                     coms <- NULL
-                    
                     resultComs <- tryCatch({
                         coms <- tna::communities(x=model, methods=methods, gamma=community_gamma)
                         TRUE
@@ -263,11 +244,9 @@ TNAClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                         self$results$communityErrorText$setVisible(TRUE)
                         FALSE
                     })
-                    
                     if(!resultComs) {
                         return()
                     }
-
                     # Plot
                     if(!self$results$community_plot$isFilled()) {
                         self$results$community_plot$setState(coms)
@@ -276,31 +255,23 @@ TNAClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                     if(!self$results$communityContent$isFilled()) {
                         self$results$communityContent$setContent(coms)
                     }
-                    
                 }
                 self$results$community_plot$setVisible(self$options$community_show_plot)
                 self$results$communityContent$setVisible(self$options$community_show_table)
                 self$results$communityTitle$setVisible(self$options$community_show_plot || self$options$community_show_table)
-                
-
-
             }
 
             ### Cliques
-
             cliques_size <- as.numeric(self$options$cliques_size)
             cliques_threshold <- as.numeric(self$options$cliques_threshold)
-
             if(!is.null(model) && ( self$options$cliques_show_text || self$options$cliques_show_plot) ) {
 
                 if(!self$results$cliques_multiple_plot$isFilled() || !self$results$cliquesContent$isFilled()) {
                     cliques <- cliques(x=model, size=cliques_size, threshold=cliques_threshold)
-
                     # Text
                     if(!self$results$cliquesContent$isFilled()) {
                         self$results$cliquesContent$setContent(cliques)
                     }
-
                     # Plot
                     if(!self$results$cliques_multiple_plot$isFilled()) {
                         self$results$cliques_multiple_plot$setState(cliques)
@@ -309,14 +280,10 @@ TNAClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                 self$results$cliques_multiple_plot$setVisible(self$options$cliques_show_plot)
                 self$results$cliquesContent$setVisible(self$options$cliques_show_text)
                 self$results$cliquesTitle$setVisible(self$options$cliques_show_text || self$options$cliques_show_plot)
-
-
             }
 
             ### Bootstrap
-
             if(!is.null(model) && ( self$options$bootstrap_show_text || self$options$bootstrap_show_plot)) {
-
                 if(!self$results$bootstrapContent$isFilled() || !self$results$bootstrap_plot$isFilled()) {
                     iteration <- self$options$bootstrap_iteration
                     level <- self$options$bootstrap_level
@@ -349,10 +316,8 @@ TNAClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                 self$results$bootstrap_plot$setVisible(self$options$bootstrap_show_plot)
                 self$results$bootstrapContent$setVisible(self$options$bootstrap_show_text)
                 self$results$bootstrapTitle$setVisible(self$options$bootstrap_show_plot || self$options$bootstrap_show_text)
-
             }
             
-
         },
         .showBuildModelPlot=function(image, ...) {
             plotData <- self$results$buildModelContent$state

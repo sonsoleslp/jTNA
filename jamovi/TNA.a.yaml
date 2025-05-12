@@ -128,12 +128,12 @@ options:
     ### CENTRALITY DATA
 
     - name: centrality_loops
-      title: loops
+      title: Loops
       type: Bool
       default: False
 
     - name: centrality_normalize
-      title: normalize
+      title: Normalize
       type: Bool
       default: False
 
