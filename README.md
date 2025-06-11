@@ -25,11 +25,14 @@ TNA Jamovi Plugin
 
 ## Installation
 
+
 Requirements: [Jamovi](https://www.jamovi.org/) >= 2.6
 
 1. Open Jamovi
 2. Go to **Modules > Jamovi library > Sideload** 
-3. Import the `.jmo` file
+3. Import the `.jmo` file. [![Mac](https://img.shields.io/badge/download-mac-blue)](https://github.com/sonsoleslp/jTNA/releases/download/1.0.0/JTNA_1.0.0_mac.jmo)
+[![Win](https://img.shields.io/badge/download-win-green)](https://github.com/sonsoleslp/jTNA/releases/download/1.0.0/JTNA_1.0.0_win.jmo)
+
 4. Select "TNAModule_x.x.x.jmo"
 
 ![Step 2 - Jamovi library](/docs/img/dropDown.png)
