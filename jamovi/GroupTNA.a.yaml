@@ -2,7 +2,7 @@
 name:  GroupTNA
 title: Group TNA
 menuGroup: JTNA
-version: '1.0.0'
+version: '1.4.0'
 jas: '1.2'
 
 options:
@@ -13,13 +13,13 @@ options:
       title: Actor
       type: Variable
     - name: buildModel_variables_long_time
-      title: Time
+      title: Time (Optional)
       type: Variable
     - name: buildModel_variables_long_action
       title: Action
       type: Variable
     - name: buildModel_variables_long_order
-      title: Order
+      title: Order (Optional)
       type: Variable
     - name: buildModel_variables_long_group
       title: Group
@@ -55,7 +55,7 @@ options:
 
       ##### PLOT
     - name: buildModel_show_matrix
-      title: Show matrix
+      title: Matrix
       type: Bool
       default: False
 
@@ -65,7 +65,7 @@ options:
       default: 900
     
     - name: buildModel_show_plot
-      title: Show plot
+      title: Plot
       type: Bool
       default: True
 
@@ -114,11 +114,15 @@ options:
           name: spring
     
     - name: buildModel_show_histo
-      title: Show histogram
+      title: Histogram
+      type: Bool
+      default: False
+    - name: buildModel_show_frequencies
+      title: Frequencies plot
       type: Bool
       default: False
     - name: buildModel_show_mosaic
-      title: Show mosaic
+      title: Mosaic
       type: Bool
       default: False
 
@@ -141,12 +145,12 @@ options:
       default: False
 
     - name: centrality_show_table
-      title: Show table
+      title: Table
       type: Bool
       default: False
 
     - name: centrality_show_plot
-      title: Show plot
+      title: Plot
       type: Bool
       default: False
 
@@ -224,12 +228,8 @@ options:
       default: 1
       min: 0
       max: 100
-    - name: community_show_table
-      title: Show table
-      type: Bool
-      default: False
     - name: community_show_plot
-      title: Show plot
+      title: Plot
       type: Bool
       default: False
 
@@ -250,14 +250,14 @@ options:
       max: 1
 
     - name: cliques_show_text
-      title: Show Text
+      title: Text
       type: Bool
       default: False
 
     ##### PLOT
 
     - name: cliques_show_plot
-      title: Show plot
+      title: Plot
       type: Bool
       default: False
 
@@ -354,13 +354,13 @@ options:
       max: 1
 
     ##### PLOT
-    - name: bootstrap_show_text
-      title: Show text
+    - name: bootstrap_show_table
+      title: Bootstrap Results Table
       type: Bool
       default: False
     
     - name: bootstrap_show_plot
-      title: Show plot
+      title: Plot
       type: Bool
       default: False
 
@@ -408,83 +408,18 @@ options:
         - title: Spring
           name: spring
 
-    ### COMPARE
-    - name: compare_model1
-      title: Index of the model A
-      type: Integer
-      default: 1
-      min: 1
-    - name: compare_model2
-      title: Index of the model B
-      type: Integer
-      default: 2
-      min: 1
 
-    - name: compare_show_text
-      title: Show text
-      type: Bool
-      default: False
-    
-    - name: compare_show_plot
-      title: Show compare plot
-      type: Bool
-      default: False
-
-    - name: compare_show_TNAplot
-      title: Show compare TNA plot
-      type: Bool
-      default: False
-    - name: compare_TNAPlot_type
-      title: Type
-      type: List
-      default: heatmap
-      options:
-        - title: Heatmap
-          name: heatmap
-        - title: Scatterplot
-          name: scatterplot
-        - title: Centrality heatmap
-          name: centrality_heatmap
-        - title: Weight density
-          name: weight_density
-        
-
-    - name: compare_TNAPlot_population
-      title: Population
-      type: List
-      default: difference
-      options:
-        - title: Model A
-          name: x
-        - title: Model B
-          name: y
-        - title: Difference
-          name: difference
-    
-    - name: compare_TNAPlot_method
-      title: Method
-      type: List
-      default: pearson
-      options:
-        - title: Pearson
-          name: pearson
-        - title: Kendall
-          name: kendall
-        - title: Spearman
-          name: spearman
-        - title: Distance
-          name: distance
 
 
     ### Permutation
 
     - name: permutation_show_text
-      title: Show text
+      title: Text
       type: Bool
       default: False
     
     - name: permutation_show_plot
-      title: Show plot
+      title: Plot
       type: Bool
       default: False
 
@@ -505,5 +440,56 @@ options:
       default: 0.05
       min: 0
       max: 1
+
+    ### SEQUENCE ANALYSIS
+
+    - name: sequences_type
+      title: Type
+      type: List
+      default: index
+      options:
+        - title: Index
+          name: index
+        - title: Distribution
+          name: distribution
+
+    - name: sequences_scale
+      title: Scale
+      type: List
+      default: proportion
+      options:
+        - title: Proportion
+          name: proportion
+        - title: Count
+          name: count
+
+    - name: sequences_geom
+      title: Geometry
+      type: List
+      default: bar
+      options:
+        - title: Bar
+          name: bar
+        - title: Area
+          name: area
+
+    - name: sequences_include_na
+      title: Include missing values
+      type: Bool
+      default: true
+
+
+
+    - name: sequences_tick
+      title: Tick
+      type: Integer
+      default: 5
+      min: 1
+      max: 20
+
+    - name: sequences_show_plot
+      title: Sequence Plot
+      type: Bool
+      default: false
 
 ...

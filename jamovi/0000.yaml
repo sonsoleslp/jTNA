@@ -1,14 +1,14 @@
 ---
 title: Transition Network Analysis
 name: JTNA
-version: 1.0.0
+version: 1.4.0
 jms: '1.0'
 authors:
   - Dylan GIRAULT
   - Mohammed Saqr
   - Santtu Tikka
   - Sonsoles López-Pernas
-maintainer: Sonsoles López-Pernas <sonsoles.lopez@uef.fi>
+maintainer: Mohammed Saqr <saqr@saqr.me>
 date: '2025-05-09'
 type: R
 description: >-
@@ -32,11 +32,13 @@ analyses:
     ns: JTNA
     menuGroup: JTNA
     menuTitle: Transition Network Analysis
+    category: analyses
   - title: Group TNA
     name: GroupTNA
     ns: JTNA
     menuGroup: JTNA
     menuTitle: Group TNA
+    category: analyses
 usesNative: true
 minApp: 1.8.0
 

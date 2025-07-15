@@ -23,6 +23,7 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             buildModel_plot_node_label_size = 1,
             buildModel_plot_layout = NULL,
             buildModel_show_histo = FALSE,
+            buildModel_show_frequencies = FALSE,
             buildModel_show_mosaic = FALSE,
             buildModel_digits = 1,
             centrality_loops = FALSE,
@@ -40,7 +41,6 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             centrality_OutStrength = TRUE,
             community_methods = "spinglass",
             community_gamma = 1,
-            community_show_table = FALSE,
             community_show_plot = FALSE,
             cliques_size = 2,
             cliques_threshold = 0,
@@ -58,7 +58,7 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             bootstrap_range_low = 0.75,
             bootstrap_range_up = 1.25,
             bootstrap_threshold = 0.1,
-            bootstrap_show_text = FALSE,
+            bootstrap_show_table = FALSE,
             bootstrap_show_plot = FALSE,
             bootstrap_plot_cut = 0,
             bootstrap_plot_min_value = 0.05,
@@ -66,19 +66,17 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             bootstrap_plot_node_size = 1,
             bootstrap_plot_node_label_size = 1,
             bootstrap_plot_layout = NULL,
-            compare_model1 = 1,
-            compare_model2 = 2,
-            compare_show_text = FALSE,
-            compare_show_plot = FALSE,
-            compare_show_TNAplot = FALSE,
-            compare_TNAPlot_type = "heatmap",
-            compare_TNAPlot_population = "difference",
-            compare_TNAPlot_method = "pearson",
             permutation_show_text = FALSE,
             permutation_show_plot = FALSE,
             permutation_iter = 1000,
             permutation_paired = FALSE,
-            permutation_level = 0.05, ...) {
+            permutation_level = 0.05,
+            sequences_type = "index",
+            sequences_scale = "proportion",
+            sequences_geom = "bar",
+            sequences_include_na = TRUE,
+            sequences_tick = 5,
+            sequences_show_plot = FALSE, ...) {
 
             super$initialize(
                 package="JTNA",
@@ -170,6 +168,10 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 "buildModel_show_histo",
                 buildModel_show_histo,
                 default=FALSE)
+            private$..buildModel_show_frequencies <- jmvcore::OptionBool$new(
+                "buildModel_show_frequencies",
+                buildModel_show_frequencies,
+                default=FALSE)
             private$..buildModel_show_mosaic <- jmvcore::OptionBool$new(
                 "buildModel_show_mosaic",
                 buildModel_show_mosaic,
@@ -248,10 +250,6 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 default=1,
                 min=0,
                 max=100)
-            private$..community_show_table <- jmvcore::OptionBool$new(
-                "community_show_table",
-                community_show_table,
-                default=FALSE)
             private$..community_show_plot <- jmvcore::OptionBool$new(
                 "community_show_plot",
                 community_show_plot,
@@ -350,9 +348,9 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 default=0.1,
                 min=0,
                 max=1)
-            private$..bootstrap_show_text <- jmvcore::OptionBool$new(
-                "bootstrap_show_text",
-                bootstrap_show_text,
+            private$..bootstrap_show_table <- jmvcore::OptionBool$new(
+                "bootstrap_show_table",
+                bootstrap_show_table,
                 default=FALSE)
             private$..bootstrap_show_plot <- jmvcore::OptionBool$new(
                 "bootstrap_show_plot",
@@ -394,54 +392,6 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 options=list(
                     "circle",
                     "spring"))
-            private$..compare_model1 <- jmvcore::OptionInteger$new(
-                "compare_model1",
-                compare_model1,
-                default=1,
-                min=1)
-            private$..compare_model2 <- jmvcore::OptionInteger$new(
-                "compare_model2",
-                compare_model2,
-                default=2,
-                min=1)
-            private$..compare_show_text <- jmvcore::OptionBool$new(
-                "compare_show_text",
-                compare_show_text,
-                default=FALSE)
-            private$..compare_show_plot <- jmvcore::OptionBool$new(
-                "compare_show_plot",
-                compare_show_plot,
-                default=FALSE)
-            private$..compare_show_TNAplot <- jmvcore::OptionBool$new(
-                "compare_show_TNAplot",
-                compare_show_TNAplot,
-                default=FALSE)
-            private$..compare_TNAPlot_type <- jmvcore::OptionList$new(
-                "compare_TNAPlot_type",
-                compare_TNAPlot_type,
-                default="heatmap",
-                options=list(
-                    "heatmap",
-                    "scatterplot",
-                    "centrality_heatmap",
-                    "weight_density"))
-            private$..compare_TNAPlot_population <- jmvcore::OptionList$new(
-                "compare_TNAPlot_population",
-                compare_TNAPlot_population,
-                default="difference",
-                options=list(
-                    "x",
-                    "y",
-                    "difference"))
-            private$..compare_TNAPlot_method <- jmvcore::OptionList$new(
-                "compare_TNAPlot_method",
-                compare_TNAPlot_method,
-                default="pearson",
-                options=list(
-                    "pearson",
-                    "kendall",
-                    "spearman",
-                    "distance"))
             private$..permutation_show_text <- jmvcore::OptionBool$new(
                 "permutation_show_text",
                 permutation_show_text,
@@ -465,6 +415,41 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 default=0.05,
                 min=0,
                 max=1)
+            private$..sequences_type <- jmvcore::OptionList$new(
+                "sequences_type",
+                sequences_type,
+                default="index",
+                options=list(
+                    "index",
+                    "distribution"))
+            private$..sequences_scale <- jmvcore::OptionList$new(
+                "sequences_scale",
+                sequences_scale,
+                default="proportion",
+                options=list(
+                    "proportion",
+                    "count"))
+            private$..sequences_geom <- jmvcore::OptionList$new(
+                "sequences_geom",
+                sequences_geom,
+                default="bar",
+                options=list(
+                    "bar",
+                    "area"))
+            private$..sequences_include_na <- jmvcore::OptionBool$new(
+                "sequences_include_na",
+                sequences_include_na,
+                default=TRUE)
+            private$..sequences_tick <- jmvcore::OptionInteger$new(
+                "sequences_tick",
+                sequences_tick,
+                default=5,
+                min=1,
+                max=20)
+            private$..sequences_show_plot <- jmvcore::OptionBool$new(
+                "sequences_show_plot",
+                sequences_show_plot,
+                default=FALSE)
 
             self$.addOption(private$..buildModel_variables_long_actor)
             self$.addOption(private$..buildModel_variables_long_time)
@@ -483,6 +468,7 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             self$.addOption(private$..buildModel_plot_node_label_size)
             self$.addOption(private$..buildModel_plot_layout)
             self$.addOption(private$..buildModel_show_histo)
+            self$.addOption(private$..buildModel_show_frequencies)
             self$.addOption(private$..buildModel_show_mosaic)
             self$.addOption(private$..buildModel_digits)
             self$.addOption(private$..centrality_loops)
@@ -500,7 +486,6 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             self$.addOption(private$..centrality_OutStrength)
             self$.addOption(private$..community_methods)
             self$.addOption(private$..community_gamma)
-            self$.addOption(private$..community_show_table)
             self$.addOption(private$..community_show_plot)
             self$.addOption(private$..cliques_size)
             self$.addOption(private$..cliques_threshold)
@@ -518,7 +503,7 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             self$.addOption(private$..bootstrap_range_low)
             self$.addOption(private$..bootstrap_range_up)
             self$.addOption(private$..bootstrap_threshold)
-            self$.addOption(private$..bootstrap_show_text)
+            self$.addOption(private$..bootstrap_show_table)
             self$.addOption(private$..bootstrap_show_plot)
             self$.addOption(private$..bootstrap_plot_cut)
             self$.addOption(private$..bootstrap_plot_min_value)
@@ -526,19 +511,17 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             self$.addOption(private$..bootstrap_plot_node_size)
             self$.addOption(private$..bootstrap_plot_node_label_size)
             self$.addOption(private$..bootstrap_plot_layout)
-            self$.addOption(private$..compare_model1)
-            self$.addOption(private$..compare_model2)
-            self$.addOption(private$..compare_show_text)
-            self$.addOption(private$..compare_show_plot)
-            self$.addOption(private$..compare_show_TNAplot)
-            self$.addOption(private$..compare_TNAPlot_type)
-            self$.addOption(private$..compare_TNAPlot_population)
-            self$.addOption(private$..compare_TNAPlot_method)
             self$.addOption(private$..permutation_show_text)
             self$.addOption(private$..permutation_show_plot)
             self$.addOption(private$..permutation_iter)
             self$.addOption(private$..permutation_paired)
             self$.addOption(private$..permutation_level)
+            self$.addOption(private$..sequences_type)
+            self$.addOption(private$..sequences_scale)
+            self$.addOption(private$..sequences_geom)
+            self$.addOption(private$..sequences_include_na)
+            self$.addOption(private$..sequences_tick)
+            self$.addOption(private$..sequences_show_plot)
         }),
     active = list(
         buildModel_variables_long_actor = function() private$..buildModel_variables_long_actor$value,
@@ -558,6 +541,7 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         buildModel_plot_node_label_size = function() private$..buildModel_plot_node_label_size$value,
         buildModel_plot_layout = function() private$..buildModel_plot_layout$value,
         buildModel_show_histo = function() private$..buildModel_show_histo$value,
+        buildModel_show_frequencies = function() private$..buildModel_show_frequencies$value,
         buildModel_show_mosaic = function() private$..buildModel_show_mosaic$value,
         buildModel_digits = function() private$..buildModel_digits$value,
         centrality_loops = function() private$..centrality_loops$value,
@@ -575,7 +559,6 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         centrality_OutStrength = function() private$..centrality_OutStrength$value,
         community_methods = function() private$..community_methods$value,
         community_gamma = function() private$..community_gamma$value,
-        community_show_table = function() private$..community_show_table$value,
         community_show_plot = function() private$..community_show_plot$value,
         cliques_size = function() private$..cliques_size$value,
         cliques_threshold = function() private$..cliques_threshold$value,
@@ -593,7 +576,7 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         bootstrap_range_low = function() private$..bootstrap_range_low$value,
         bootstrap_range_up = function() private$..bootstrap_range_up$value,
         bootstrap_threshold = function() private$..bootstrap_threshold$value,
-        bootstrap_show_text = function() private$..bootstrap_show_text$value,
+        bootstrap_show_table = function() private$..bootstrap_show_table$value,
         bootstrap_show_plot = function() private$..bootstrap_show_plot$value,
         bootstrap_plot_cut = function() private$..bootstrap_plot_cut$value,
         bootstrap_plot_min_value = function() private$..bootstrap_plot_min_value$value,
@@ -601,19 +584,17 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         bootstrap_plot_node_size = function() private$..bootstrap_plot_node_size$value,
         bootstrap_plot_node_label_size = function() private$..bootstrap_plot_node_label_size$value,
         bootstrap_plot_layout = function() private$..bootstrap_plot_layout$value,
-        compare_model1 = function() private$..compare_model1$value,
-        compare_model2 = function() private$..compare_model2$value,
-        compare_show_text = function() private$..compare_show_text$value,
-        compare_show_plot = function() private$..compare_show_plot$value,
-        compare_show_TNAplot = function() private$..compare_show_TNAplot$value,
-        compare_TNAPlot_type = function() private$..compare_TNAPlot_type$value,
-        compare_TNAPlot_population = function() private$..compare_TNAPlot_population$value,
-        compare_TNAPlot_method = function() private$..compare_TNAPlot_method$value,
         permutation_show_text = function() private$..permutation_show_text$value,
         permutation_show_plot = function() private$..permutation_show_plot$value,
         permutation_iter = function() private$..permutation_iter$value,
         permutation_paired = function() private$..permutation_paired$value,
-        permutation_level = function() private$..permutation_level$value),
+        permutation_level = function() private$..permutation_level$value,
+        sequences_type = function() private$..sequences_type$value,
+        sequences_scale = function() private$..sequences_scale$value,
+        sequences_geom = function() private$..sequences_geom$value,
+        sequences_include_na = function() private$..sequences_include_na$value,
+        sequences_tick = function() private$..sequences_tick$value,
+        sequences_show_plot = function() private$..sequences_show_plot$value),
     private = list(
         ..buildModel_variables_long_actor = NA,
         ..buildModel_variables_long_time = NA,
@@ -632,6 +613,7 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         ..buildModel_plot_node_label_size = NA,
         ..buildModel_plot_layout = NA,
         ..buildModel_show_histo = NA,
+        ..buildModel_show_frequencies = NA,
         ..buildModel_show_mosaic = NA,
         ..buildModel_digits = NA,
         ..centrality_loops = NA,
@@ -649,7 +631,6 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         ..centrality_OutStrength = NA,
         ..community_methods = NA,
         ..community_gamma = NA,
-        ..community_show_table = NA,
         ..community_show_plot = NA,
         ..cliques_size = NA,
         ..cliques_threshold = NA,
@@ -667,7 +648,7 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         ..bootstrap_range_low = NA,
         ..bootstrap_range_up = NA,
         ..bootstrap_threshold = NA,
-        ..bootstrap_show_text = NA,
+        ..bootstrap_show_table = NA,
         ..bootstrap_show_plot = NA,
         ..bootstrap_plot_cut = NA,
         ..bootstrap_plot_min_value = NA,
@@ -675,19 +656,17 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         ..bootstrap_plot_node_size = NA,
         ..bootstrap_plot_node_label_size = NA,
         ..bootstrap_plot_layout = NA,
-        ..compare_model1 = NA,
-        ..compare_model2 = NA,
-        ..compare_show_text = NA,
-        ..compare_show_plot = NA,
-        ..compare_show_TNAplot = NA,
-        ..compare_TNAPlot_type = NA,
-        ..compare_TNAPlot_population = NA,
-        ..compare_TNAPlot_method = NA,
         ..permutation_show_text = NA,
         ..permutation_show_plot = NA,
         ..permutation_iter = NA,
         ..permutation_paired = NA,
-        ..permutation_level = NA)
+        ..permutation_level = NA,
+        ..sequences_type = NA,
+        ..sequences_scale = NA,
+        ..sequences_geom = NA,
+        ..sequences_include_na = NA,
+        ..sequences_tick = NA,
+        ..sequences_show_plot = NA)
 )
 
 GroupTNAResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
@@ -700,6 +679,7 @@ GroupTNAResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         buildModelContent = function() private$.items[["buildModelContent"]],
         buildModel_plot = function() private$.items[["buildModel_plot"]],
         buildModel_histo = function() private$.items[["buildModel_histo"]],
+        buildModel_frequencies = function() private$.items[["buildModel_frequencies"]],
         buildModel_mosaic = function() private$.items[["buildModel_mosaic"]],
         centralityTitle = function() private$.items[["centralityTitle"]],
         centralityContent = function() private$.items[["centralityContent"]],
@@ -713,15 +693,12 @@ GroupTNAResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
         cliquesContent = function() private$.items[["cliquesContent"]],
         cliques_multiple_plot = function() private$.items[["cliques_multiple_plot"]],
         bootstrapTitle = function() private$.items[["bootstrapTitle"]],
-        bootstrapContent = function() private$.items[["bootstrapContent"]],
+        bootstrapTable = function() private$.items[["bootstrapTable"]],
         bootstrap_plot = function() private$.items[["bootstrap_plot"]],
-        comparisonTitle = function() private$.items[["comparisonTitle"]],
-        comparisonContent = function() private$.items[["comparisonContent"]],
-        comparison_plot = function() private$.items[["comparison_plot"]],
-        comparisonTNA_plot = function() private$.items[["comparisonTNA_plot"]],
         permutationTitle = function() private$.items[["permutationTitle"]],
         permutationContent = function() private$.items[["permutationContent"]],
-        permutation_plot = function() private$.items[["permutation_plot"]]),
+        permutation_plot = function() private$.items[["permutation_plot"]],
+        sequences_plot = function() private$.items[["sequences_plot"]]),
     private = list(),
     public=list(
         initialize=function(options) {
@@ -799,9 +776,25 @@ GroupTNAResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "buildModel_threshold")))
             self$add(jmvcore::Image$new(
                 options=options,
-                name="buildModel_mosaic",
+                name="buildModel_frequencies",
                 width=1000,
                 height=800,
+                visible=FALSE,
+                renderFun=".showBuildModelFrequencies",
+                clearWith=list(
+                    "buildModel_variables_long_actor",
+                    "buildModel_variables_long_time",
+                    "buildModel_variables_long_action",
+                    "buildModel_variables_long_order",
+                    "buildModel_variables_long_group",
+                    "buildModel_type",
+                    "buildModel_scaling",
+                    "buildModel_threshold")))
+            self$add(jmvcore::Image$new(
+                options=options,
+                name="buildModel_mosaic",
+                width=400,
+                height=300,
                 visible=FALSE,
                 renderFun=".showBuildModelMosaic",
                 clearWith=list(
@@ -846,6 +839,7 @@ GroupTNAResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             self$add(jmvcore::Table$new(
                 options=options,
                 name="centralityTable",
+                title="Centrality Measures",
                 visible=FALSE,
                 columns=list(
                     list(
@@ -988,6 +982,7 @@ GroupTNAResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "buildModel_threshold",
                     "cliques_size",
                     "cliques_threshold",
+                    "cliques_plot_cut",
                     "cliques_plot_min_value",
                     "cliques_plot_edge_label_size",
                     "cliques_plot_node_size",
@@ -1040,10 +1035,52 @@ GroupTNAResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 name="bootstrapTitle",
                 title="Bootstrap",
                 visible=FALSE))
-            self$add(jmvcore::Preformatted$new(
+            self$add(jmvcore::Table$new(
                 options=options,
-                name="bootstrapContent",
+                name="bootstrapTable",
+                title="Bootstrap Results",
                 visible=FALSE,
+                columns=list(
+                    list(
+                        `name`="group", 
+                        `title`="Group", 
+                        `type`="text"),
+                    list(
+                        `name`="from", 
+                        `title`="From", 
+                        `type`="text"),
+                    list(
+                        `name`="to", 
+                        `title`="To", 
+                        `type`="text"),
+                    list(
+                        `name`="weight", 
+                        `title`="Weight", 
+                        `type`="number"),
+                    list(
+                        `name`="p_value", 
+                        `title`="p-value", 
+                        `type`="number"),
+                    list(
+                        `name`="cr_lower", 
+                        `title`="CR Lower", 
+                        `type`="number"),
+                    list(
+                        `name`="cr_upper", 
+                        `title`="CR Upper", 
+                        `type`="number"),
+                    list(
+                        `name`="ci_lower", 
+                        `title`="CI Lower", 
+                        `type`="number"),
+                    list(
+                        `name`="ci_upper", 
+                        `title`="CI Upper", 
+                        `type`="number"),
+                    list(
+                        `name`="significant", 
+                        `title`="Significant", 
+                        `type`="text")),
                 clearWith=list(
                     "buildModel_variables_long_actor",
                     "buildModel_variables_long_time",
@@ -1089,72 +1126,31 @@ GroupTNAResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "bootstrap_plot_layout")))
             self$add(jmvcore::Preformatted$new(
                 options=options,
-                name="comparisonTitle",
-                title="Comparison",
-                visible=FALSE))
-            self$add(jmvcore::Preformatted$new(
-                options=options,
-                name="comparisonContent",
-                visible=FALSE,
-                clearWith=list(
-                    "buildModel_variables_long_actor",
-                    "buildModel_variables_long_time",
-                    "buildModel_variables_long_action",
-                    "buildModel_variables_long_order",
-                    "buildModel_variables_long_group",
-                    "buildModel_type",
-                    "buildModel_scaling",
-                    "buildModel_threshold",
-                    "compare_model1",
-                    "compare_model2")))
-            self$add(jmvcore::Image$new(
-                options=options,
-                name="comparison_plot",
-                width=1000,
-                height=800,
-                visible=FALSE,
-                renderFun=".showComparisonPlot",
-                clearWith=list(
-                    "buildModel_variables_long_actor",
-                    "buildModel_variables_long_time",
-                    "buildModel_variables_long_action",
-                    "buildModel_variables_long_order",
-                    "buildModel_variables_long_group",
-                    "buildModel_type",
-                    "buildModel_scaling",
-                    "buildModel_threshold",
-                    "compare_model1",
-                    "compare_model2")))
-            self$add(jmvcore::Image$new(
-                options=options,
-                name="comparisonTNA_plot",
-                width=1000,
-                height=800,
-                visible=FALSE,
-                renderFun=".showComparisonTNAPlot",
-                clearWith=list(
-                    "buildModel_variables_long_actor",
-                    "buildModel_variables_long_time",
-                    "buildModel_variables_long_action",
-                    "buildModel_variables_long_order",
-                    "buildModel_variables_long_group",
-                    "buildModel_type",
-                    "buildModel_scaling",
-                    "buildModel_threshold",
-                    "compare_model1",
-                    "compare_model2",
-                    "compare_TNAPlot_type",
-                    "compare_TNAPlot_population",
-                    "compare_TNAPlot_method")))
-            self$add(jmvcore::Preformatted$new(
-                options=options,
                 name="permutationTitle",
                 title="Permutation",
                 visible=FALSE))
-            self$add(jmvcore::Preformatted$new(
+            self$add(jmvcore::Table$new(
                 options=options,
                 name="permutationContent",
+                title="Permutation Test Results",
                 visible=FALSE,
+                columns=list(
+                    list(
+                        `name`="group_comparison", 
+                        `title`="Group Comparison", 
+                        `type`="text"),
+                    list(
+                        `name`="edge_name", 
+                        `type`="text"),
+                    list(
+                        `name`="diff_true", 
+                        `type`="number"),
+                    list(
+                        `name`="effect_size", 
+                        `type`="number"),
+                    list(
+                        `name`="p_value", 
+                        `type`="number")),
                 clearWith=list(
                     "buildModel_variables_long_actor",
                     "buildModel_variables_long_time",
@@ -1185,7 +1181,29 @@ GroupTNAResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "buildModel_threshold",
                     "permutation_iter",
                     "permutation_paired",
-                    "permutation_level")))}))
+                    "permutation_level")))
+            self$add(jmvcore::Image$new(
+                options=options,
+                name="sequences_plot",
+                title="Sequence Analysis Plot",
+                width=1000,
+                height=800,
+                visible=FALSE,
+                renderFun=".showSequencesPlot",
+                clearWith=list(
+                    "buildModel_variables_long_actor",
+                    "buildModel_variables_long_time",
+                    "buildModel_variables_long_action",
+                    "buildModel_variables_long_order",
+                    "buildModel_variables_long_group",
+                    "buildModel_type",
+                    "buildModel_scaling",
+                    "buildModel_threshold",
+                    "sequences_type",
+                    "sequences_scale",
+                    "sequences_geom",
+                    "sequences_include_na",
+                    "sequences_tick")))}))
 
 GroupTNABase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
     "GroupTNABase",
@@ -1195,7 +1213,7 @@ GroupTNABase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             super$initialize(
                 package = "JTNA",
                 name = "GroupTNA",
-                version = c(1,0,0),
+                version = c(1,4,0),
                 options = options,
                 results = GroupTNAResults$new(options=options),
                 data = data,
@@ -1229,6 +1247,7 @@ GroupTNABase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @param buildModel_plot_node_label_size .
 #' @param buildModel_plot_layout .
 #' @param buildModel_show_histo .
+#' @param buildModel_show_frequencies .
 #' @param buildModel_show_mosaic .
 #' @param buildModel_digits .
 #' @param centrality_loops .
@@ -1246,7 +1265,6 @@ GroupTNABase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @param centrality_OutStrength .
 #' @param community_methods .
 #' @param community_gamma .
-#' @param community_show_table .
 #' @param community_show_plot .
 #' @param cliques_size .
 #' @param cliques_threshold .
@@ -1264,7 +1282,7 @@ GroupTNABase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @param bootstrap_range_low .
 #' @param bootstrap_range_up .
 #' @param bootstrap_threshold .
-#' @param bootstrap_show_text .
+#' @param bootstrap_show_table .
 #' @param bootstrap_show_plot .
 #' @param bootstrap_plot_cut .
 #' @param bootstrap_plot_min_value .
@@ -1272,19 +1290,17 @@ GroupTNABase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #' @param bootstrap_plot_node_size .
 #' @param bootstrap_plot_node_label_size .
 #' @param bootstrap_plot_layout .
-#' @param compare_model1 .
-#' @param compare_model2 .
-#' @param compare_show_text .
-#' @param compare_show_plot .
-#' @param compare_show_TNAplot .
-#' @param compare_TNAPlot_type .
-#' @param compare_TNAPlot_population .
-#' @param compare_TNAPlot_method .
 #' @param permutation_show_text .
 #' @param permutation_show_plot .
 #' @param permutation_iter .
 #' @param permutation_paired .
 #' @param permutation_level .
+#' @param sequences_type .
+#' @param sequences_scale .
+#' @param sequences_geom .
+#' @param sequences_include_na .
+#' @param sequences_tick .
+#' @param sequences_show_plot .
 #' @return A results object containing:
 #' \tabular{llllll}{
 #'   \code{results$errorText} \tab \tab \tab \tab \tab a preformatted \cr
@@ -1293,6 +1309,7 @@ GroupTNABase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #'   \code{results$buildModelContent} \tab \tab \tab \tab \tab a preformatted \cr
 #'   \code{results$buildModel_plot} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$buildModel_histo} \tab \tab \tab \tab \tab an image \cr
+#'   \code{results$buildModel_frequencies} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$buildModel_mosaic} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$centralityTitle} \tab \tab \tab \tab \tab a preformatted \cr
 #'   \code{results$centralityContent} \tab \tab \tab \tab \tab a preformatted \cr
@@ -1311,15 +1328,12 @@ GroupTNABase <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 #'   \code{results$cliques_multiple_plot$cliques_plot5} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$cliques_multiple_plot$cliques_plot6} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$bootstrapTitle} \tab \tab \tab \tab \tab a preformatted \cr
-#'   \code{results$bootstrapContent} \tab \tab \tab \tab \tab a preformatted \cr
+#'   \code{results$bootstrapTable} \tab \tab \tab \tab \tab a table \cr
 #'   \code{results$bootstrap_plot} \tab \tab \tab \tab \tab an image \cr
-#'   \code{results$comparisonTitle} \tab \tab \tab \tab \tab a preformatted \cr
-#'   \code{results$comparisonContent} \tab \tab \tab \tab \tab a preformatted \cr
-#'   \code{results$comparison_plot} \tab \tab \tab \tab \tab an image \cr
-#'   \code{results$comparisonTNA_plot} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$permutationTitle} \tab \tab \tab \tab \tab a preformatted \cr
-#'   \code{results$permutationContent} \tab \tab \tab \tab \tab a preformatted \cr
+#'   \code{results$permutationContent} \tab \tab \tab \tab \tab a table \cr
 #'   \code{results$permutation_plot} \tab \tab \tab \tab \tab an image \cr
+#'   \code{results$sequences_plot} \tab \tab \tab \tab \tab an image \cr
 #' }
 #'
 #' Tables can be converted to data frames with \code{asDF} or \code{\link{as.data.frame}}. For example:
@@ -1348,6 +1362,7 @@ GroupTNA <- function(
     buildModel_plot_node_label_size = 1,
     buildModel_plot_layout,
     buildModel_show_histo = FALSE,
+    buildModel_show_frequencies = FALSE,
     buildModel_show_mosaic = FALSE,
     buildModel_digits = 1,
     centrality_loops = FALSE,
@@ -1365,7 +1380,6 @@ GroupTNA <- function(
     centrality_OutStrength = TRUE,
     community_methods = "spinglass",
     community_gamma = 1,
-    community_show_table = FALSE,
     community_show_plot = FALSE,
     cliques_size = 2,
     cliques_threshold = 0,
@@ -1383,7 +1397,7 @@ GroupTNA <- function(
     bootstrap_range_low = 0.75,
     bootstrap_range_up = 1.25,
     bootstrap_threshold = 0.1,
-    bootstrap_show_text = FALSE,
+    bootstrap_show_table = FALSE,
     bootstrap_show_plot = FALSE,
     bootstrap_plot_cut = 0,
     bootstrap_plot_min_value = 0.05,
@@ -1391,19 +1405,17 @@ GroupTNA <- function(
     bootstrap_plot_node_size = 1,
     bootstrap_plot_node_label_size = 1,
     bootstrap_plot_layout,
-    compare_model1 = 1,
-    compare_model2 = 2,
-    compare_show_text = FALSE,
-    compare_show_plot = FALSE,
-    compare_show_TNAplot = FALSE,
-    compare_TNAPlot_type = "heatmap",
-    compare_TNAPlot_population = "difference",
-    compare_TNAPlot_method = "pearson",
     permutation_show_text = FALSE,
     permutation_show_plot = FALSE,
     permutation_iter = 1000,
     permutation_paired = FALSE,
-    permutation_level = 0.05) {
+    permutation_level = 0.05,
+    sequences_type = "index",
+    sequences_scale = "proportion",
+    sequences_geom = "bar",
+    sequences_include_na = TRUE,
+    sequences_tick = 5,
+    sequences_show_plot = FALSE) {
 
     if ( ! requireNamespace("jmvcore", quietly=TRUE))
         stop("GroupTNA requires jmvcore to be installed (restart may be required)")
@@ -1441,6 +1453,7 @@ GroupTNA <- function(
         buildModel_plot_node_label_size = buildModel_plot_node_label_size,
         buildModel_plot_layout = buildModel_plot_layout,
         buildModel_show_histo = buildModel_show_histo,
+        buildModel_show_frequencies = buildModel_show_frequencies,
         buildModel_show_mosaic = buildModel_show_mosaic,
         buildModel_digits = buildModel_digits,
         centrality_loops = centrality_loops,
@@ -1458,7 +1471,6 @@ GroupTNA <- function(
         centrality_OutStrength = centrality_OutStrength,
         community_methods = community_methods,
         community_gamma = community_gamma,
-        community_show_table = community_show_table,
         community_show_plot = community_show_plot,
         cliques_size = cliques_size,
         cliques_threshold = cliques_threshold,
@@ -1476,7 +1488,7 @@ GroupTNA <- function(
         bootstrap_range_low = bootstrap_range_low,
         bootstrap_range_up = bootstrap_range_up,
         bootstrap_threshold = bootstrap_threshold,
-        bootstrap_show_text = bootstrap_show_text,
+        bootstrap_show_table = bootstrap_show_table,
         bootstrap_show_plot = bootstrap_show_plot,
         bootstrap_plot_cut = bootstrap_plot_cut,
         bootstrap_plot_min_value = bootstrap_plot_min_value,
@@ -1484,19 +1496,17 @@ GroupTNA <- function(
         bootstrap_plot_node_size = bootstrap_plot_node_size,
         bootstrap_plot_node_label_size = bootstrap_plot_node_label_size,
         bootstrap_plot_layout = bootstrap_plot_layout,
-        compare_model1 = compare_model1,
-        compare_model2 = compare_model2,
-        compare_show_text = compare_show_text,
-        compare_show_plot = compare_show_plot,
-        compare_show_TNAplot = compare_show_TNAplot,
-        compare_TNAPlot_type = compare_TNAPlot_type,
-        compare_TNAPlot_population = compare_TNAPlot_population,
-        compare_TNAPlot_method = compare_TNAPlot_method,
         permutation_show_text = permutation_show_text,
         permutation_show_plot = permutation_show_plot,
         permutation_iter = permutation_iter,
         permutation_paired = permutation_paired,
-        permutation_level = permutation_level)
+        permutation_level = permutation_level,
+        sequences_type = sequences_type,
+        sequences_scale = sequences_scale,
+        sequences_geom = sequences_geom,
+        sequences_include_na = sequences_include_na,
+        sequences_tick = sequences_tick,
+        sequences_show_plot = sequences_show_plot)
 
     analysis <- GroupTNAClass$new(
         options = options,

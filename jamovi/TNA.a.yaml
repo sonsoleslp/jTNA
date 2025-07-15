@@ -2,7 +2,7 @@
 name:  TNA
 title: Transition Network Analysis
 menuGroup: JTNA
-version: '1.0.0'
+version: '1.4.0'
 jas: '1.2'
 
 options:
@@ -10,16 +10,16 @@ options:
       type: Data
 
     - name: buildModel_variables_long_actor
-      title: Actor
+      title: Actor (Optional)
       type: Variable
     - name: buildModel_variables_long_time
-      title: Time
+      title: Time (Optional)
       type: Variable
     - name: buildModel_variables_long_action
       title: Action
       type: Variable
     - name: buildModel_variables_long_order
-      title: Order
+      title: Order (Optional)
       type: Variable
 
     ### BUILD MODEL DATA
@@ -52,7 +52,7 @@ options:
 
       ##### PLOT
     - name: buildModel_show_matrix
-      title: Show matrix
+      title: Matrix
       type: Bool
       default: False
 
@@ -62,14 +62,14 @@ options:
       default: 900
     
     - name: buildModel_show_plot
-      title: Show plot
+      title: Plot
       type: Bool
       default: True
 
     - name: buildModel_plot_cut
       title: Cut value
       type: Number
-      default: 0
+      default: 0.1
       min: 0
       max: 1
 
@@ -111,11 +111,15 @@ options:
           name: spring
     
     - name: buildModel_show_histo
-      title: Show histogram
+      title: Histogram
+      type: Bool
+      default: False
+    - name: buildModel_show_frequencies
+      title: Frequencies plot
       type: Bool
       default: False
     - name: buildModel_show_mosaic
-      title: Show mosaic
+      title: Mosaic
       type: Bool
       default: False
 
@@ -128,22 +132,22 @@ options:
     ### CENTRALITY DATA
 
     - name: centrality_loops
-      title: Loops
+      title: loops
       type: Bool
       default: False
 
     - name: centrality_normalize
-      title: Normalize
+      title: normalize
       type: Bool
       default: False
 
     - name: centrality_show_table
-      title: Show table
+      title: Table
       type: Bool
       default: False
 
     - name: centrality_show_plot
-      title: Show plot
+      title: Plot
       type: Bool
       default: False
 
@@ -195,20 +199,20 @@ options:
 
     ### EDGE BETWEENNESS
     ##### PLOT
-    - name: edgeBetweenness_show_text
-      title: Show text
+    - name: edgeBetweenness_show_table
+      title: Table
       type: Bool
       default: False
     
     - name: edgeBetweenness_show_plot
-      title: Show plot
+      title: Plot
       type: Bool
       default: False
 
     - name: edgeBetweenness_plot_cut
       title: Cut value
       type: Number
-      default: 0
+      default: 0.1
       min: 0
       max: 1
 
@@ -277,12 +281,14 @@ options:
       default: 1
       min: 0
       max: 100
+    
     - name: community_show_table
-      title: Show table
+      title: Table
       type: Bool
       default: False
+
     - name: community_show_plot
-      title: Show plot
+      title: Plot
       type: Bool
       default: False
 
@@ -303,21 +309,21 @@ options:
       max: 1
 
     - name: cliques_show_text
-      title: Show Text
+      title: Text
       type: Bool
       default: False
 
     ##### PLOT
 
     - name: cliques_show_plot
-      title: Show plot
+      title: Plot
       type: Bool
       default: False
 
     - name: cliques_plot_cut
       title: Cut value
       type: Number
-      default: 0
+      default: 0.1
       min: 0
       max: 1
 
@@ -407,20 +413,20 @@ options:
       max: 1
 
     ##### PLOT
-    - name: bootstrap_show_text
-      title: Show text
+    - name: bootstrap_show_plot
+      title: Plot
       type: Bool
       default: False
-    
-    - name: bootstrap_show_plot
-      title: Show plot
+
+    - name: bootstrap_show_table
+      title: Table
       type: Bool
       default: False
 
     - name: bootstrap_plot_cut
       title: Cut value
       type: Number
-      default: 0
+      default: 0.1
       min: 0
       max: 1
 
@@ -460,5 +466,56 @@ options:
           name: circle
         - title: Spring
           name: spring
+
+    ### SEQUENCE ANALYSIS
+
+    - name: sequences_type
+      title: Type
+      type: List
+      default: index
+      options:
+        - title: Index
+          name: index
+        - title: Distribution
+          name: distribution
+
+    - name: sequences_scale
+      title: Scale
+      type: List
+      default: proportion
+      options:
+        - title: Proportion
+          name: proportion
+        - title: Count
+          name: count
+
+    - name: sequences_geom
+      title: Geometry
+      type: List
+      default: bar
+      options:
+        - title: Bar
+          name: bar
+        - title: Area
+          name: area
+
+    - name: sequences_include_na
+      title: Include missing values
+      type: Bool
+      default: true
+
+
+
+    - name: sequences_tick
+      title: Tick
+      type: Integer
+      default: 5
+      min: 1
+      max: 20
+
+    - name: sequences_show_plot
+      title: Sequence Plot
+      type: Bool
+      default: false
 
 ...

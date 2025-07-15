@@ -29,7 +29,6 @@ items:
         - buildModel_variables_long_action
         - buildModel_variables_long_order
         - buildModel_variables_long_group
-
         - buildModel_type
         - buildModel_scaling
         - buildModel_threshold
@@ -46,11 +45,9 @@ items:
         - buildModel_variables_long_action
         - buildModel_variables_long_order
         - buildModel_variables_long_group
-
         - buildModel_type
         - buildModel_scaling
         - buildModel_threshold
-
         - buildModel_plot_cut
         - buildModel_plot_min_value
         - buildModel_plot_edge_label_size
@@ -70,15 +67,30 @@ items:
         - buildModel_variables_long_action
         - buildModel_variables_long_order
         - buildModel_variables_long_group
+        - buildModel_type
+        - buildModel_scaling
+        - buildModel_threshold
 
+    - name: buildModel_frequencies
+      type: Image
+      width: 1000
+      height: 800
+      visible: False
+      renderFun: .showBuildModelFrequencies
+      clearWith:
+        - buildModel_variables_long_actor
+        - buildModel_variables_long_time
+        - buildModel_variables_long_action
+        - buildModel_variables_long_order
+        - buildModel_variables_long_group
         - buildModel_type
         - buildModel_scaling
         - buildModel_threshold
 
     - name: buildModel_mosaic
       type: Image
-      width: 1000
-      height: 800
+      width: 400
+      height: 300
       visible: False
       renderFun: .showBuildModelMosaic
       clearWith:
@@ -87,11 +99,9 @@ items:
         - buildModel_variables_long_action
         - buildModel_variables_long_order
         - buildModel_variables_long_group
-
         - buildModel_type
         - buildModel_scaling
         - buildModel_threshold
-
         - buildModel_digits
 
 
@@ -113,8 +123,6 @@ items:
         - buildModel_type
         - buildModel_scaling
         - buildModel_threshold
-
-
         - centrality_loops
         - centrality_normalize
         - centrality_Betweenness
@@ -129,6 +137,7 @@ items:
 
     - name: centralityTable
       type: Table
+      title: Centrality Measures
       visible: False
       columns:
         - name: state
@@ -142,8 +151,6 @@ items:
         - buildModel_type
         - buildModel_scaling
         - buildModel_threshold
-
-
         - centrality_loops
         - centrality_normalize
         - centrality_Betweenness
@@ -171,8 +178,6 @@ items:
         - buildModel_type
         - buildModel_scaling
         - buildModel_threshold
-
-
         - centrality_loops
         - centrality_normalize
         - centrality_Betweenness
@@ -207,8 +212,6 @@ items:
         - buildModel_type
         - buildModel_scaling
         - buildModel_threshold
-
-
         - community_methods
         - community_gamma
 
@@ -227,8 +230,6 @@ items:
         - buildModel_type
         - buildModel_scaling
         - buildModel_threshold
-
-
         - community_methods
         - community_gamma
 
@@ -251,8 +252,6 @@ items:
         - buildModel_type
         - buildModel_scaling
         - buildModel_threshold
-
-
         - cliques_size
         - cliques_threshold
 
@@ -269,11 +268,9 @@ items:
         - buildModel_type
         - buildModel_scaling
         - buildModel_threshold
-
-
         - cliques_size
         - cliques_threshold
-
+        - cliques_plot_cut
         - cliques_plot_min_value
         - cliques_plot_edge_label_size
         - cliques_plot_node_size
@@ -324,9 +321,41 @@ items:
       title: Bootstrap
       visible: False
 
-    - name:  bootstrapContent
-      type:  Preformatted
+    - name:  bootstrapTable
+      type:  Table
+      title: Bootstrap Results
       visible: False
+      columns:
+        - name: group
+          title: Group
+          type: text
+        - name: from
+          title: From
+          type: text
+        - name: to
+          title: To
+          type: text
+        - name: weight
+          title: Weight
+          type: number
+        - name: p_value
+          title: p-value
+          type: number
+        - name: cr_lower
+          title: CR Lower
+          type: number
+        - name: cr_upper
+          title: CR Upper
+          type: number
+        - name: ci_lower
+          title: CI Lower
+          type: number
+        - name: ci_upper
+          title: CI Upper
+          type: number
+        - name: significant
+          title: Significant
+          type: text
       clearWith:
         - buildModel_variables_long_actor
         - buildModel_variables_long_time
@@ -336,8 +365,6 @@ items:
         - buildModel_type
         - buildModel_scaling
         - buildModel_threshold
-
-
         - bootstrap_iteration
         - bootstrap_level
         - bootstrap_method
@@ -360,89 +387,18 @@ items:
         - buildModel_type
         - buildModel_scaling
         - buildModel_threshold
-
-
         - bootstrap_iteration
         - bootstrap_level
         - bootstrap_method
         - bootstrap_range_low
         - bootstrap_range_up
         - bootstrap_threshold
-
         - bootstrap_plot_cut
         - bootstrap_plot_min_value
         - bootstrap_plot_edge_label_size
         - bootstrap_plot_node_size
         - bootstrap_plot_node_label_size
         - bootstrap_plot_layout
-
-    ### Comparison
-
-    - name:  comparisonTitle
-      type:  Preformatted
-      title: Comparison
-      visible: False
-
-    - name:  comparisonContent
-      type:  Preformatted
-      visible: False
-      clearWith:
-        - buildModel_variables_long_actor
-        - buildModel_variables_long_time
-        - buildModel_variables_long_action
-        - buildModel_variables_long_order
-        - buildModel_variables_long_group
-        - buildModel_type
-        - buildModel_scaling
-        - buildModel_threshold
-
-
-        - compare_model1
-        - compare_model2
-        
-    
-    - name: comparison_plot
-      type: Image
-      width: 1000
-      height: 800
-      visible: False
-      renderFun: .showComparisonPlot
-      clearWith:
-        - buildModel_variables_long_actor
-        - buildModel_variables_long_time
-        - buildModel_variables_long_action
-        - buildModel_variables_long_order
-        - buildModel_variables_long_group
-        - buildModel_type
-        - buildModel_scaling
-        - buildModel_threshold
-
-
-        - compare_model1
-        - compare_model2
-    - name: comparisonTNA_plot
-      type: Image
-      width: 1000
-      height: 800
-      visible: False
-      renderFun: .showComparisonTNAPlot
-      clearWith:
-        - buildModel_variables_long_actor
-        - buildModel_variables_long_time
-        - buildModel_variables_long_action
-        - buildModel_variables_long_order
-        - buildModel_variables_long_group
-        - buildModel_type
-        - buildModel_scaling
-        - buildModel_threshold
-
-
-        - compare_model1
-        - compare_model2
-
-        - compare_TNAPlot_type
-        - compare_TNAPlot_population
-        - compare_TNAPlot_method
 
     
     ### Permutation
@@ -453,8 +409,21 @@ items:
       visible: False
 
     - name:  permutationContent
-      type:  Preformatted
+      type:  Table
+      title: Permutation Test Results
       visible: False
+      columns:
+        - name: group_comparison
+          title: Group Comparison
+          type: text
+        - name: edge_name
+          type: text
+        - name: diff_true
+          type: number
+        - name: effect_size
+          type: number
+        - name: p_value
+          type: number
       clearWith:
         - buildModel_variables_long_actor
         - buildModel_variables_long_time
@@ -464,8 +433,6 @@ items:
         - buildModel_type
         - buildModel_scaling
         - buildModel_threshold
-
-
         - permutation_iter
         - permutation_paired
         - permutation_level
@@ -486,10 +453,32 @@ items:
         - buildModel_type
         - buildModel_scaling
         - buildModel_threshold
-
-
         - permutation_iter
         - permutation_paired
         - permutation_level
+
+    ### Sequence Analysis
+
+    - name: sequences_plot
+      type: Image
+      title: Sequence Analysis Plot
+      width: 1000
+      height: 800
+      visible: False
+      renderFun: .showSequencesPlot
+      clearWith:
+        - buildModel_variables_long_actor
+        - buildModel_variables_long_time
+        - buildModel_variables_long_action
+        - buildModel_variables_long_order
+        - buildModel_variables_long_group
+        - buildModel_type
+        - buildModel_scaling
+        - buildModel_threshold
+        - sequences_type
+        - sequences_scale
+        - sequences_geom
+        - sequences_include_na
+        - sequences_tick
 
 ...

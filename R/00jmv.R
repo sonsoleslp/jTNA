@@ -6,6 +6,6 @@
         `type`="package", 
         `author`="Dylan Girault, Mohammed Saqr, Sonsoles L\u00F3pez-Pernas, Santtu Tikka", 
         `year`=2025, 
-        `title`="Transition Network Analysis (TNA)", 
-        `publisher`="[R package]. Retrieved from https://CRAN.R-project.org/package=tna", 
-        `url`="https://CRAN.R-project.org/package=tna"))
+        `title`="A module for Transition Network Analysis (TNA)", 
+        `publisher`="Retrieved from https://doi.org/10.1177/0146621625134884'", 
+        `url`="https://doi.org/10.1177/0146621625134884"))

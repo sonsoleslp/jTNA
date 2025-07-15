@@ -1,7 +1,7 @@
 Package: JTNA
 Type: Package
 Title: Transition Network Analysis
-Version: 1.0.0
+Version: 1.4.0
 Author:
   -  Dylan Girault [cre]
   -  Mohammed Saqr [aut]
@@ -13,19 +13,18 @@ Description: >-
     study relational dynamics, including functions for building and plotting TNA
     models, calculating centrality measures, and identifying dominant events and
     patterns. TNA statistical techniques (e.g., bootstrapping and permutation
-    tests) ensure the reliability of observed insights and confirm that 
-    identified dynamics are meaningful. 
-    (https://doi.org/10.1145/3706468.3706513)[See (Saqr et al., 2025)]
+    tests) ensure the reliability of observed insights and confirm that
+    identified dynamics are meaningful. <a href="https://doi.org/10.1145/3706468.3706513" target="_blank">See (Saqr et al., 2025)</a> 
     for more details on TNA.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-URL: https://github.com/sonsoleslp/jTNA/,https://github.com/sonsoleslp/tna/, http://sonsoles.me/tna/
-BugReports: https://github.com/sonsoleslp/jTNA/issues/
+URL: https://github.com/sonsoleslp/tna/, http://sonsoles.me/tna/
+BugReports: https://github.com/sonsoleslp/tna/issues/
 Depends: R (>= 4.1.0)
 RoxygenNote: 7.3.2
 Imports: 
     jmvcore (>= 0.8.5), 
-    R6
-Remotes: 
-    sonsoleslp/tna
+    R6,
+    ggplot2,
+    tna
