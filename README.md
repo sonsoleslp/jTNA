@@ -1,7 +1,7 @@
 # JTNA - Jamovi Transition Network Analysis Module
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-blue.svg)]()
+[![Version: 1.4.0](https://img.shields.io/badge/Version-1.4.0-blue.svg)]()
 [![Jamovi](https://img.shields.io/badge/Jamovi-Compatible-green.svg)](https://www.jamovi.org/)
 
 A comprehensive **Jamovi plugin** for performing **Transition Network Analysis (TNA)** to study relational dynamics and behavioral patterns in sequential data. This module provides an intuitive graphical interface for advanced network analysis techniques within the Jamovi statistical software environment.
@@ -41,7 +41,7 @@ A comprehensive **Jamovi plugin** for performing **Transition Network Analysis (
 ## 🚀 Installation
 
 ### Method 1: Direct Installation (Recommended)
-1. Download the latest `.jmo` file from the [releases page](https://github.com/mohsaqr/JTNA1.2/releases)
+1. Download the latest `.jmo` file from the [releases page](https://github.com/sonsoleslp/jtna/releases)
 2. Open **Jamovi**
 3. Navigate to **Modules → Jamovi library → Sideload**
 4. Select the downloaded `JTNA_1.2.0.jmo` file
@@ -80,7 +80,7 @@ JTNA/
 │   │
 │   ├── DESCRIPTION             # Package metadata
 │   ├── NAMESPACE               # Function exports
-│   └── JTNA_1.2.0.jmo         # Compiled module file
+│   └── JTNA_1.4.0.jmo         # Compiled module file
 │
 └── README.md                   # This file
 
@@ -143,12 +143,12 @@ This project is licensed under the MIT License - see the [LICENSE](TNAModule/LIC
 
 ## 🐛 Bug Reports & Feature Requests
 
-- **Issues**: [GitHub Issues](https://github.com/mohsaqr/JTNA1.2/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/mohsaqr/JTNA1.2/discussions)
+- **Issues**: [GitHub Issues](https://github.com/sonsoleslp/JTNA/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/sonsoleslp/JTNA/discussions)
 
 ## 🔄 Version History
 
-### Version 1.2.0 (Latest)
+### Version 1.4.0 (Latest)
 - ✨ **New**: Sequence Analysis feature with bar and area plot options
 - ✨ **New**: Enhanced customization options for plots
 - 🔧 **Improved**: User interface and workflow
