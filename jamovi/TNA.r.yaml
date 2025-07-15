@@ -527,15 +527,10 @@ items:
         - buildModel_variables_long_time
         - buildModel_variables_long_action
         - buildModel_variables_long_order
-        - buildModel_type
-        - buildModel_scaling
-        - buildModel_threshold
-
         - sequences_type
         - sequences_scale
         - sequences_geom
         - sequences_include_na
-
         - sequences_tick
         
 ...

@@ -51,7 +51,7 @@ TNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             community_show_table = FALSE,
             community_show_plot = FALSE,
             cliques_size = 2,
-            cliques_threshold = 0,
+            cliques_threshold = 0.01,
             cliques_show_text = FALSE,
             cliques_show_plot = FALSE,
             cliques_plot_cut = 0.1,
@@ -77,7 +77,7 @@ TNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             sequences_type = "index",
             sequences_scale = "proportion",
             sequences_geom = "bar",
-            sequences_include_na = TRUE,
+            sequences_include_na = FALSE,
             sequences_tick = 5,
             sequences_show_plot = FALSE, ...) {
 
@@ -95,7 +95,8 @@ TNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                 buildModel_variables_long_time)
             private$..buildModel_variables_long_action <- jmvcore::OptionVariable$new(
                 "buildModel_variables_long_action",
-                buildModel_variables_long_action)
+                buildModel_variables_long_action,
+                required=TRUE)
             private$..buildModel_variables_long_order <- jmvcore::OptionVariable$new(
                 "buildModel_variables_long_order",
                 buildModel_variables_long_order)
@@ -311,7 +312,7 @@ TNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             private$..cliques_threshold <- jmvcore::OptionNumber$new(
                 "cliques_threshold",
                 cliques_threshold,
-                default=0,
+                default=0.01,
                 min=0,
                 max=1)
             private$..cliques_show_text <- jmvcore::OptionBool$new(
@@ -464,7 +465,7 @@ TNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             private$..sequences_include_na <- jmvcore::OptionBool$new(
                 "sequences_include_na",
                 sequences_include_na,
-                default=TRUE)
+                default=FALSE)
             private$..sequences_tick <- jmvcore::OptionInteger$new(
                 "sequences_tick",
                 sequences_tick,
@@ -1270,9 +1271,6 @@ TNAResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "buildModel_variables_long_time",
                     "buildModel_variables_long_action",
                     "buildModel_variables_long_order",
-                    "buildModel_type",
-                    "buildModel_scaling",
-                    "buildModel_threshold",
                     "sequences_type",
                     "sequences_scale",
                     "sequences_geom",
@@ -1469,7 +1467,7 @@ TNA <- function(
     community_show_table = FALSE,
     community_show_plot = FALSE,
     cliques_size = 2,
-    cliques_threshold = 0,
+    cliques_threshold = 0.01,
     cliques_show_text = FALSE,
     cliques_show_plot = FALSE,
     cliques_plot_cut = 0.1,
@@ -1495,7 +1493,7 @@ TNA <- function(
     sequences_type = "index",
     sequences_scale = "proportion",
     sequences_geom = "bar",
-    sequences_include_na = TRUE,
+    sequences_include_na = FALSE,
     sequences_tick = 5,
     sequences_show_plot = FALSE) {
 

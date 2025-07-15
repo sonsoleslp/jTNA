@@ -43,7 +43,7 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             community_gamma = 1,
             community_show_plot = FALSE,
             cliques_size = 2,
-            cliques_threshold = 0,
+            cliques_threshold = 0.01,
             cliques_show_text = FALSE,
             cliques_show_plot = FALSE,
             cliques_plot_cut = 0,
@@ -74,7 +74,7 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             sequences_type = "index",
             sequences_scale = "proportion",
             sequences_geom = "bar",
-            sequences_include_na = TRUE,
+            sequences_include_na = FALSE,
             sequences_tick = 5,
             sequences_show_plot = FALSE, ...) {
 
@@ -86,19 +86,22 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
 
             private$..buildModel_variables_long_actor <- jmvcore::OptionVariable$new(
                 "buildModel_variables_long_actor",
-                buildModel_variables_long_actor)
+                buildModel_variables_long_actor,
+                required=TRUE)
             private$..buildModel_variables_long_time <- jmvcore::OptionVariable$new(
                 "buildModel_variables_long_time",
                 buildModel_variables_long_time)
             private$..buildModel_variables_long_action <- jmvcore::OptionVariable$new(
                 "buildModel_variables_long_action",
-                buildModel_variables_long_action)
+                buildModel_variables_long_action,
+                required=TRUE)
             private$..buildModel_variables_long_order <- jmvcore::OptionVariable$new(
                 "buildModel_variables_long_order",
                 buildModel_variables_long_order)
             private$..buildModel_variables_long_group <- jmvcore::OptionVariable$new(
                 "buildModel_variables_long_group",
-                buildModel_variables_long_group)
+                buildModel_variables_long_group,
+                required=TRUE)
             private$..buildModel_type <- jmvcore::OptionList$new(
                 "buildModel_type",
                 buildModel_type,
@@ -263,7 +266,7 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             private$..cliques_threshold <- jmvcore::OptionNumber$new(
                 "cliques_threshold",
                 cliques_threshold,
-                default=0,
+                default=0.01,
                 min=0,
                 max=1)
             private$..cliques_show_text <- jmvcore::OptionBool$new(
@@ -439,7 +442,7 @@ GroupTNAOptions <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
             private$..sequences_include_na <- jmvcore::OptionBool$new(
                 "sequences_include_na",
                 sequences_include_na,
-                default=TRUE)
+                default=FALSE)
             private$..sequences_tick <- jmvcore::OptionInteger$new(
                 "sequences_tick",
                 sequences_tick,
@@ -1196,9 +1199,6 @@ GroupTNAResults <- if (requireNamespace("jmvcore", quietly=TRUE)) R6::R6Class(
                     "buildModel_variables_long_action",
                     "buildModel_variables_long_order",
                     "buildModel_variables_long_group",
-                    "buildModel_type",
-                    "buildModel_scaling",
-                    "buildModel_threshold",
                     "sequences_type",
                     "sequences_scale",
                     "sequences_geom",
@@ -1382,7 +1382,7 @@ GroupTNA <- function(
     community_gamma = 1,
     community_show_plot = FALSE,
     cliques_size = 2,
-    cliques_threshold = 0,
+    cliques_threshold = 0.01,
     cliques_show_text = FALSE,
     cliques_show_plot = FALSE,
     cliques_plot_cut = 0,
@@ -1413,7 +1413,7 @@ GroupTNA <- function(
     sequences_type = "index",
     sequences_scale = "proportion",
     sequences_geom = "bar",
-    sequences_include_na = TRUE,
+    sequences_include_na = FALSE,
     sequences_tick = 5,
     sequences_show_plot = FALSE) {
 

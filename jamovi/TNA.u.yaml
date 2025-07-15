@@ -474,6 +474,16 @@ children:
               - type: CheckBox
                 name: sequences_show_plot
                 label: Sequence plot
+          - type: Label
+            label: Options
+            children:
+              - type: CheckBox
+                name: sequences_include_na
+                label: Include missing values
+              - type: TextBox
+                name: sequences_tick
+                format: number
+                label: Tick Interval
       - type: LayoutBox
         stretchFactor: 1
         children:
@@ -516,13 +526,4 @@ children:
                 name: sequences_geom_area
                 optionName: sequences_geom
                 optionPart: area
-          - type: Label
-            label: Options
-            children:
-              - type: CheckBox
-                name: sequences_include_na
-                label: Include missing values
-              - type: TextBox
-                name: sequences_tick
-                format: number
-                label: Tick Interval
+          

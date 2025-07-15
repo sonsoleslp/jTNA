@@ -53,7 +53,6 @@ TNAClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                     if(!is.null(self$options$buildModel_variables_long_order)) {
                         copyData[[self$options$buildModel_variables_long_order]] <- as.character(copyData[[self$options$buildModel_variables_long_order]])
                     }
-
                     
                     threshold <- self$options$buildModel_threshold
 

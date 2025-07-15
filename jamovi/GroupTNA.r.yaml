@@ -472,9 +472,6 @@ items:
         - buildModel_variables_long_action
         - buildModel_variables_long_order
         - buildModel_variables_long_group
-        - buildModel_type
-        - buildModel_scaling
-        - buildModel_threshold
         - sequences_type
         - sequences_scale
         - sequences_geom

@@ -12,18 +12,21 @@ options:
     - name: buildModel_variables_long_actor
       title: Actor
       type: Variable
+      required: true
     - name: buildModel_variables_long_time
       title: Time (Optional)
       type: Variable
     - name: buildModel_variables_long_action
       title: Action
       type: Variable
+      required: true
     - name: buildModel_variables_long_order
       title: Order (Optional)
       type: Variable
     - name: buildModel_variables_long_group
       title: Group
       type: Variable
+      required: true
 
     ### BUILD MODEL DATA
 
@@ -245,7 +248,7 @@ options:
     - name: cliques_threshold
       title: Threshold
       type: Number
-      default: 0
+      default: 0.01
       min: 0
       max: 1
 
@@ -476,9 +479,7 @@ options:
     - name: sequences_include_na
       title: Include missing values
       type: Bool
-      default: true
-
-
+      default: false
 
     - name: sequences_tick
       title: Tick
