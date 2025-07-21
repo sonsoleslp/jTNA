@@ -27,4 +27,6 @@ Imports:
     jmvcore (>= 0.8.5), 
     R6,
     ggplot2,
-    tna
+Remotes:
+    sonsoleslp/tna@cabafbeca3e6d8d29e3ab588b67974a3e107ecc0
+
