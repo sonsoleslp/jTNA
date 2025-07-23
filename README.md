@@ -4,7 +4,7 @@
 [![Version: 1.4.0](https://img.shields.io/badge/Version-1.4.0-blue.svg)]()
 [![Jamovi](https://img.shields.io/badge/Jamovi-Compatible-green.svg)](https://www.jamovi.org/)
 
-A comprehensive **Jamovi plugin** for performing **Transition Network Analysis (TNA)** to study relational dynamics and behavioral patterns in sequential data. This module provides an intuitive graphical interface for advanced network analysis techniques within the Jamovi statistical software environment.
+A comprehensive **Jamovi plugin** for performing **Transition Network Analysis (TNA)** to study relational dynamics and behavioral patterns in sequential data. This module provides an intuitive graphical interface for transition network analysis techniques within the Jamovi statistical software environment.
 
 ## 🎯 Features
 
@@ -12,7 +12,7 @@ A comprehensive **Jamovi plugin** for performing **Transition Network Analysis (
 - **Build TNA Models**: Create transition networks from sequential behavioral data
 - **Centrality Measures**: Calculate betweenness, closeness, degree, and eigenvector centrality
 - **Network Visualization**: Generate publication-ready transition network plots
-- **Statistical Validation**: Bootstrap confidence intervals and permutation tests
+- **Statistical Validation**: Bootstrap and permutation tests
 
 ### **🆕 Sequence Analysis** 
 - **Sequence Visualization**: Plot behavioral sequences with multiple display options
@@ -26,7 +26,7 @@ A comprehensive **Jamovi plugin** for performing **Transition Network Analysis (
 - **Group-specific Statistics**: Separate centrality measures and network metrics
 
 ### **Advanced Features**
-- **Interactive Plotting**: Dynamic network visualizations with customizable layouts
+- **Interactive Plotting**: Network visualizations with customizable layouts
 - **Export Options**: High-quality publication-ready outputs
 - **Comprehensive Statistics**: Detailed network metrics and behavioral insights
 - **User-friendly Interface**: Intuitive GUI designed for researchers
@@ -130,8 +130,8 @@ If you use JTNA in your research, please cite:
 ```
 
 ## 👥 Authors & Contributors
-- **Dylan Girault** - Lead Developer   
 - **Mohammed Saqr** - Development & Research
+- **Dylan Girault** - Lead Developer   
 - **Santtu Tikka** - Statistical Methods
 - **Sonsoles López-Pernas** - Research & Development
 
