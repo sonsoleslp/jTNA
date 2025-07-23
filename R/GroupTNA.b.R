@@ -577,8 +577,7 @@ GroupTNAClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
           edge.label.cex=self$options$buildModel_plot_edge_label_size,
           node.width=self$options$buildModel_plot_node_size,
           label.cex=self$options$buildModel_plot_node_label_size,
-          layout=self$options$buildModel_plot_layout,
-          pie=NULL
+          layout=self$options$buildModel_plot_layout
         )
         TRUE
       }
@@ -689,7 +688,7 @@ GroupTNAClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
           par(mfrow = c(row, column))
         }
         methods <- self$options$community_methods
-        plot(x=plotData, method=methods, pie=NULL)
+        plot(x=plotData, method=methods)
         TRUE
       }
       else {
